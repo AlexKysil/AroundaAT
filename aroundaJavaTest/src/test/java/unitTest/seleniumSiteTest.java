@@ -299,4 +299,13 @@ public class seleniumSiteTest extends fixtureClass {
 
         driver.findElement(By.xpath("//div[@class='section_divider_wrap process_divider']")).isDisplayed();
     }
+
+    @Test
+    @Ignore //Just for Test
+    public void checkProcessPictures(){
+        driver.findElement(By.xpath("//img[@src='assets/icons/index/startegy.svg']")).isDisplayed();
+        driver.findElement(By.xpath("//img[@src='assets/icons/index/user_experience.svg']")).isDisplayed();
+        driver.findElement(By.xpath("//img[@src='assets/icons/index/design.svg']")).isDisplayed();
+        driver.findElement(By.xpath("//img[@src='assets/icons/index/development.svg']")).isDisplayed();
+    }
 }
