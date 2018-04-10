@@ -205,9 +205,9 @@ public class seleniumSiteTest extends fixtureClass {
         }
     }
 
-    @Test //Should be separeted for 3 different tests
+    @Test //Should be separeted to 3 different tests
     @Ignore //Just for test
-    public void CheckAgancyText() {
+    public void checkAgancyText() {
 
         String expectedTitle = "Agency specializes in\n" +
                 "web & mobile apps";
@@ -245,4 +245,36 @@ public class seleniumSiteTest extends fixtureClass {
         }
     }
 
+    @Test // Should be separeted to 3 different test
+    @Ignore // Just for test
+    public void checkTeamTurnsText(){
+        String expectedTitle = "Our team turns to the heart of the product";
+        String actualTitle = driver.findElement(By.xpath("//div[@class='section_cont creed_cont']/h2")).getText();
+        if(!actualTitle.equals(expectedTitle)){
+            Assert.fail("Error, actual result is: " + actualTitle);
+        }else{
+            System.out.println("Expected resilt is: " + expectedTitle);
+            System.out.println("Actual result is: " + actualTitle);
+        }
+        driver.findElement(By.xpath("//div[@class='section_divider_wrap creed_divider']")).isDisplayed();
+
+        String expectedText = "Our mission is to set up the processes to reach the main business goals. " +
+                "We pay special attention to the logic of the product and user interaction.";
+        String actualText = driver.findElement(By.xpath("//p[@class='section_text creed_text']")).getText();
+        if(!actualText.equals(expectedText)){
+            Assert.fail("Error, actual result is: " + actualText);
+        }else{
+            System.out.println("Expected resilt is: " + expectedText);
+            System.out.println("Actual result is: " + actualText);
+        }
+
+        String expectedQualities = "Creative, respectable & responsible";
+        String actualQualities = driver.findElement(By.xpath("//p[@class='section_text creed_undertext']")).getText();
+        if(!actualQualities.equals(expectedQualities)){
+            Assert.fail("Error, actual result is: " + actualQualities);
+        }else{
+            System.out.println("Expected resilt is: " + expectedQualities);
+            System.out.println("Actual result is: " + actualQualities);
+        }
+    }
 }
