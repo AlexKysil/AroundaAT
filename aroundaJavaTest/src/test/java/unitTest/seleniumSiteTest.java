@@ -283,4 +283,20 @@ public class seleniumSiteTest extends fixtureClass {
     public void checkLaptopIMG() {
         driver.findElement(By.xpath("//img[@class='creed_laptop_screen']")).isDisplayed();
     }
+
+    @Test // Should be separeted
+    @Ignore //Just for test
+    public void checkOurProcess() {
+        String expectedResult = "Our process\n" +
+                "Beautiful mobile apps & websites";
+        String actualResult = driver.findElement(By.xpath("//div[@class='section_cont process_cont']")).getText();
+        if (!actualResult.equals(expectedResult)) {
+            Assert.fail("Error, actual result is: " + actualResult);
+        } else {
+            System.out.println("Expected result is: " + expectedResult);
+            System.out.println("Actual result is: " + actualResult);
+        }
+
+        driver.findElement(By.xpath("//div[@class='section_divider_wrap process_divider']")).isDisplayed();
+    }
 }
