@@ -328,4 +328,28 @@ public class seleniumSiteTest extends fixtureClass {
         }
     }
 
+    @Test
+    @Ignore // Just for test
+    public void checkProcessText() {
+        String[] expectedTexts = {"We start the project by searching for a basically possible understanding of how and where we need to move.",
+                "Understanding the logic and structure of the product lays the foundation for the product’s interaction with the environment",
+                "The visual component creates a unique perception of the product by users, evokes interest in interaction",
+                "The most competent implementation of the visual result with the help of the latest technologies for a simpler perception of the product"};
+        ArrayList<WebElement> blocks = new ArrayList<WebElement>(driver.findElements(By.xpath("//div[@class='process_group']//p")));
+        for(int i = 0; i<4; i++) {
+            for (WebElement elem : blocks) {
+                if (!elem.getText().equals(expectedTexts[i]) && i >= 3){
+                    Assert.fail("Error, actual result: " + elem.getText());
+                }else if(elem.getText().equals(expectedTexts[i])){
+                    System.out.println("Expected result is: " + expectedTexts[i]);
+                    System.out.println("Actual result is: " + elem.getText());
+                    i++;
+                }else{
+                    i++;
+                    continue;
+                }
+            }
+        }
+    }
+
 }
