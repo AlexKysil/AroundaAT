@@ -122,7 +122,7 @@ public class seleniumSiteTest extends fixtureClass {
         a.testNextElement("business", "bus", element);
         a.testNextElement("product", "pro", element);
     }
-
+    
     @Test
     @Ignore    //Just for Test
     public void checkArrowDownUp() throws InterruptedException {
@@ -139,6 +139,104 @@ public class seleniumSiteTest extends fixtureClass {
     @Ignore //Just for Test
     public void checkMobilePhoneImage() {
         driver.findElement(By.xpath("//img[@class='specialise_phone_screen phone_frame_vert']")).isDisplayed();
+    }
+
+    @Test
+    @Ignore // Just for Test
+    public void checkMoreCasesLink() throws InterruptedException {
+        String expectedResult = "more cases⟶";
+        String dribbleLink = "https://dribbble.com/arounda";
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//img[@class='main_loader_img']")));
+        Thread.sleep(500);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='section_arrow_wrap']/img")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='section_arrow_wrap']/img")));
+        driver.findElement(By.xpath("//div[@class='section_arrow_wrap']/img")).click();
+
+        String actualResult = driver.findElement(By.xpath("//div[@class='cases-arrow_wrap']")).getText();
+
+        if(!actualResult.equals(expectedResult)){
+            Assert.fail("This is actual result: " + actualResult);
+        }
+
+        String mainWindowHandler = driver.getWindowHandle();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='cases-arrow_wrap']")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='cases-arrow_wrap']/a")));
+        driver.findElement(By.xpath("//div[@class='cases-arrow_wrap']/a")).click();
+        Set<String> allHandles = driver.getWindowHandles();
+        for (String handle : allHandles) {
+            if (handle.equals(mainWindowHandler)) {
+                continue;
+            } else {
+                driver.switchTo().window(handle);
+                System.out.println(driver.getCurrentUrl());
+            }
+        }
+        String actualLink = driver.getCurrentUrl();
+        if (!(dribbleLink.equals(actualLink))) {
+            Assert.fail("Current URL is: " + actualLink);
+        }
+        driver.close();
+        driver.switchTo().window(mainWindowHandler);
+        System.out.println(driver.getCurrentUrl());
+
+    }
+
+    @Test
+    @Ignore // Not done yet
+    public void checkHumbergerMenu() throws InterruptedException {
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[@class='hamburger-box']")));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='section_arrow_wrap']/img")));
+            // wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='section_arrow_wrap']/img")));
+            Thread.sleep(500);
+            driver.findElement(By.xpath("//div[@class='section_arrow_wrap']/img")).click();
+        }catch(ElementNotVisibleException env){
+            System.out.println("This element is invisible: arrowDown");
+        }
+        try {
+            wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='hamburger-box']"))));
+        } catch(ElementNotVisibleException env){
+            System.out.println("This element is not visible: HumburgerMenu");
+
+        }
+    }
+
+    @Test
+    public void CheckAgancyText() {
+
+        String expectedTitle = "Agency specializes in\n" +
+                "web & mobile apps";
+        String actualTitle = driver.findElement(By.xpath("//div[@class='section_cont specialise_cont']/h2")).getText();
+
+        if(!actualTitle.equals(expectedTitle)){
+            Assert.fail("Error, actualResult is: " + actualTitle);
+        }else{
+            System.out.println("This is expected result: " + expectedTitle);
+            System.out.println("This is actualResult: " + actualTitle);
+        }
+
+        driver.findElement(By.xpath("//div[@class='section_divider_wrap specialise_divider']")).isDisplayed();
+
+        String expectedPText = "We are engaged in the creation products for startups, services and emerging business. " +
+                "Agency has expertise in entertainment, dating, finance, education & healthcare spheres.";
+
+        String actualPText = driver.findElement(By.xpath("//div[@class='section_cont specialise_cont']/p")).getText();
+
+        if(!actualPText.equals(expectedPText)){
+            Assert.fail("Error, the actual result is: " + actualPText);
+        }else{
+            System.out.println("Expected result: " + expectedPText);
+            System.out.println("Actual result is: " + actualPText);
+        }
+
+        String expectedProjTeam = "89+ Completed projects 13+ People in team";
+        String actualProjTeam = driver.findElement(By.xpath("//div[@class='section_cont specialise_cont']/ul")).getText();
+
+        if(!actualProjTeam.equals(expectedProjTeam)){
+
+        }
     }
 
 }
