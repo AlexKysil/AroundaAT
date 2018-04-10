@@ -277,4 +277,10 @@ public class seleniumSiteTest extends fixtureClass {
             System.out.println("Actual result is: " + actualQualities);
         }
     }
+
+    @Test
+    @Ignore // Just for test
+    public void checkLaptopIMG() {
+        driver.findElement(By.xpath("//img[@class='creed_laptop_screen']")).isDisplayed();
+    }
 }
