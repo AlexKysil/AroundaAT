@@ -17,15 +17,11 @@ import r_s_c.lib_S.fixtureClass;
 import r_s_c.lib_S.CommonActionFunctions.*;
 
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class seleniumSiteTest extends fixtureClass {
-    @Test
-    @Ignore   // Have no idea
-    public void openSiteMaximizeBrowser(){
-
-    }
 
     @Test
     @Ignore // Just for test
@@ -308,4 +304,28 @@ public class seleniumSiteTest extends fixtureClass {
         driver.findElement(By.xpath("//img[@src='assets/icons/index/design.svg']")).isDisplayed();
         driver.findElement(By.xpath("//img[@src='assets/icons/index/development.svg']")).isDisplayed();
     }
+
+    @Test
+    @Ignore //Just for test
+    public void checkProcessTitles(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class='process_single_title' and contains(text(), \"Development\")]")));
+        String[] expectedtResult = {"Strategy","UX Design","Design","Development"};
+        ArrayList<WebElement> blocks = new ArrayList<WebElement>((driver.findElements(By.xpath("//div[@class='process_group']//h3"))));
+
+        for(int i = 0; i<4; i++) {
+            for (WebElement elem : blocks) {
+                if (!elem.getText().equals(expectedtResult[i]) && i >= 3){
+                    Assert.fail("Error, actual result: " + elem.getText());
+                }else if(elem.getText().equals(expectedtResult[i])){
+                    System.out.println("Expected result is: " + expectedtResult[i]);
+                    System.out.println("Actual result is: " + elem.getText());
+                    i++;
+                }else{
+                    i++;
+                    continue;
+                }
+            }
+        }
+    }
+
 }
