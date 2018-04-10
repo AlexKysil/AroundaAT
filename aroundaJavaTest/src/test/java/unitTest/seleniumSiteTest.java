@@ -2,9 +2,11 @@ package unitTest;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.sikuli.api.Screen;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -122,7 +124,7 @@ public class seleniumSiteTest extends fixtureClass {
         a.testNextElement("business", "bus", element);
         a.testNextElement("product", "pro", element);
     }
-    
+
     @Test
     @Ignore    //Just for Test
     public void checkArrowDownUp() throws InterruptedException {
@@ -203,7 +205,8 @@ public class seleniumSiteTest extends fixtureClass {
         }
     }
 
-    @Test
+    @Test //Should be separeted for 3 different tests
+    @Ignore //Just for test
     public void CheckAgancyText() {
 
         String expectedTitle = "Agency specializes in\n" +
@@ -235,7 +238,10 @@ public class seleniumSiteTest extends fixtureClass {
         String actualProjTeam = driver.findElement(By.xpath("//div[@class='section_cont specialise_cont']/ul")).getText();
 
         if(!actualProjTeam.equals(expectedProjTeam)){
-
+            Assert.fail("Error, actual Result is: " + actualProjTeam);
+        }else{
+            System.out.println("Expected result is: " + expectedProjTeam);
+            System.out.println("Actual result is: " + actualProjTeam);
         }
     }
 
