@@ -352,4 +352,50 @@ public class seleniumSiteTest extends fixtureClass {
         }
     }
 
+    @Test
+    @Ignore //Just for test
+    public void checkWantWork(){
+    String expectedResult = "Want to work with us? Let's start!";
+    String actualResult = driver.findElement(By.xpath("//p[@class = 'help_text']")).getText();
+    if(!actualResult.equals(expectedResult)){
+        Assert.fail("Wrong actual text: " + actualResult);
+    }else
+    {
+        System.out.println("Expected result is: " + expectedResult);
+        System.out.println("Actual result is: " + actualResult);
+    }
+}
+
+    @Test
+    @Ignore //Just for test
+    public void checkHelpMail() {
+        String expectedResult = "info@arounda.agency";
+        String actualResult = driver.findElement(By.xpath("//a[@class='help_mail']")).getText();
+        if(!actualResult.equals(expectedResult)){
+            Assert.fail("Wrind actual result is: " + actualResult);
+        }else  {
+            System.out.println("Expected result is: " + expectedResult);
+            System.out.println("Actual result is " + actualResult);
+        }
+    }
+
+    @Test
+    public void checkhireUsBTN() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(), \"HIRE US\")]")));
+        String mainPageURl = driver.getCurrentUrl();
+        String expectedURL = "https://arounda.agency/contact.html";
+        driver.findElement(By.xpath("//button[contains(text(), \"HIRE US\")]")).click();
+        String actualResult = driver.getCurrentUrl();
+        if(actualResult.equals(mainPageURl)){
+            Assert.fail("BTN doesn`t work, still main page " + mainPageURl);
+        }else if(!actualResult.equals(expectedURL)){
+            Assert.fail("Expected one page, get: " +  actualResult);
+        }else {
+            System.out.println("BTN works");
+        }
+
+        driver.navigate().back();
+        System.out.println(driver.getCurrentUrl());
+    }
+
 }
